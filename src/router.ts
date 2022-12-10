@@ -1,14 +1,20 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
-import Dashboard from "./views/Dashboard.vue";
-import Forms from "./views/Forms.vue";
-import Tables from "./views/Tables.vue";
-import UIElements from "./views/UIElements.vue";
-import Login from "./views/Login.vue";
-import Modal from "./views/Modal.vue";
-import Card from "./views/Card.vue";
-import Blank from "./views/Blank.vue";
+// Sample
+import Dashboard from "./views/sample/Dashboard.vue";
+import Forms from "./views/sample/Forms.vue";
+import Tables from "./views/sample/Tables.vue";
+import UIElements from "./views/sample/UIElements.vue";
+import Login from "./views/sample/Login.vue";
+import Modal from "./views/sample/Modal.vue";
+import Card from "./views/sample/Card.vue";
+import Blank from "./views/sample/Blank.vue";
 import NotFound from "./views/NotFound.vue";
+
+
+
+
+import Menu from "./views/admin/Menu.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -17,38 +23,44 @@ const routes: RouteRecordRaw[] = [
     component: Login,
     meta: { layout: "empty" },
   },
+
   {
-    path: "/dashboard",
+    path: "/admin/menu",
+    name: "Menu",
+    component: Menu,
+  },
+  {
+    path: "/sample/dashboard",
     name: "Dashboard",
     component: Dashboard,
   },
   {
-    path: "/forms",
+    path: "/sample/forms",
     name: "Forms",
     component: Forms,
   },
   {
-    path: "/cards",
+    path: "/sample/cards",
     name: "Cards",
     component: Card,
   },
   {
-    path: "/tables",
+    path: "/sample/tables",
     name: "Tables",
     component: Tables,
   },
   {
-    path: "/ui-elements",
+    path: "/sample/ui-elements",
     name: "UIElements",
     component: UIElements,
   },
   {
-    path: "/modal",
+    path: "/sample/modal",
     name: "Modal",
     component: Modal,
   },
   {
-    path: "/blank",
+    path: "/sample/blank",
     name: "Blank",
     component: Blank,
   },
