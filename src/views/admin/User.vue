@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-8">
-      <h4 class="text-gray-600">메뉴 관리</h4>
+      <h4 class="text-gray-600">사용자 관리</h4>
 
       <div class="flex flex-col mt-6">
         <div
@@ -118,7 +118,7 @@ export default defineComponent({
   setup() {
     const { wideTableData, } = useTableData();
     const userList = ref([]);
-    axios.get("http://localhost/menu/list.do").then((res: any)=>{
+    axios.get("http://localhost/user/list.do").then((res: any)=>{
       userList.value = res.data.data;
     });
     return {
