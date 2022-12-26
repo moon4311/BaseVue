@@ -110,7 +110,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import axios from 'axios'
 import { useTableData } from "../../hooks/useTableData";
 
@@ -118,7 +118,10 @@ export default defineComponent({
   setup() {
     const { wideTableData, } = useTableData();
     const userList = ref([]);
-    axios.get("http://localhost/user/list.do").then((res: any)=>{
+    // axios.defaults.withCredentials = false;
+
+    
+    axios.get("http://localhost/user/list").then((res: any)=>{
       userList.value = res.data.data;
     });
     return {

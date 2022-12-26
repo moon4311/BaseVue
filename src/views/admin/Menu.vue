@@ -118,7 +118,7 @@ export default defineComponent({
   setup() {
     const { wideTableData, } = useTableData();
     const userList = ref([]);
-    axios.get("http://localhost/menu/list.do").then((res: any)=>{
+    axios.get("http://localhost/menu/list").then((res: any)=>{
       userList.value = res.data.data;
     });
     return {
