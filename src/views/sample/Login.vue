@@ -28,7 +28,7 @@
         <label class="block">
           <span class="text-sm text-gray-700">Email</span>
           <input
-            type="email"
+            type="text"
             class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
             v-model="email"
           />
@@ -76,15 +76,35 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from 'axios'
 
 export default defineComponent({
   setup() {
     const router = useRouter();
-    const email = ref("johndoe@mail.com");
-    const password = ref("@#!@#asdf1231!_!@#");
+    const email = ref("admin");
+    const password = ref("password");
 
+    axios.defaults.withCredentials = false;
     function login() {
-      router.push("/sample/dashboard");
+      axios.post("http://localhost/loginProcess",
+        "username="+email.value+"&password="+password.value,
+        {
+          headers: {
+            'Content-type': 'application/x-www-form-urlencoded'
+          }
+        }).then(res => {
+          if(res.status===200){
+            sessionStorage.setItem("role",res.data.role);
+            router.push("/sample/dashboard");
+          }else{
+            console.log(res.data);
+          }
+      }).catch(
+        (reason)=>{
+          console.log(reason);
+        }
+      );
+      //router.push("/sample/dashboard");
     }
 
     return {
