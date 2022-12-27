@@ -86,7 +86,7 @@ export default defineComponent({
 
     axios.defaults.withCredentials = false;
     function login() {
-      axios.post("http://localhost/loginProcess",
+      axios.post("http://172.30.1.10/loginProcess",
         "username="+email.value+"&password="+password.value,
         {
           headers: {

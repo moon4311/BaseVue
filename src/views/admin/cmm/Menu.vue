@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-8">
-      <h4 class="text-gray-600">사용자 관리</h4>
+      <h4 class="text-gray-600">메뉴 관리</h4>
 
       <div class="flex flex-col mt-6">
         <div
@@ -110,18 +110,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref } from "vue";
 import axios from 'axios'
-import { useTableData } from "../../hooks/useTableData";
+import { useTableData } from "/src/hooks/useTableData";
 
 export default defineComponent({
   setup() {
     const { wideTableData, } = useTableData();
     const userList = ref([]);
-    // axios.defaults.withCredentials = false;
-
-    
-    axios.get("http://localhost/user/list").then((res: any)=>{
+    axios.get("http://172.30.1.10/menu/list").then((res: any)=>{
       userList.value = res.data.data;
     });
     return {

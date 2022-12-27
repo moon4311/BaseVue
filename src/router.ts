@@ -14,8 +14,8 @@ import NotFound from "./views/NotFound.vue";
 
 
 
-import Menu from "./views/admin/Menu.vue";
-import User from "./views/admin/User.vue";
+import Menu from "./views/admin/cmm/Menu.vue";
+import User from "./views/admin/cmm/User.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -23,7 +23,7 @@ const routes: RouteRecordRaw[] = [
     name: "Login",
     component: Login,
     meta: { layout: "empty" },
-  },
+    },
 
   {
     path: "/admin/menu",
@@ -35,6 +35,8 @@ const routes: RouteRecordRaw[] = [
     name: "User",
     component: User,
   },
+
+
   {
     path: "/sample/dashboard",
     name: "Dashboard",
