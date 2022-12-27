@@ -14,8 +14,12 @@ import NotFound from "./views/NotFound.vue";
 
 
 
-import Menu from "./views/admin/cmm/Menu.vue";
 import User from "./views/admin/cmm/User.vue";
+import Menu from "./views/admin/cmm/Menu.vue";
+import Code from "./views/admin/cmm/Code.vue";
+import AuthName from "./views/admin/cmm/Code.vue";
+import AuthRole from "./views/admin/cmm/Code.vue";
+import AuthGrant from "./views/admin/cmm/Code.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -35,6 +39,29 @@ const routes: RouteRecordRaw[] = [
     name: "User",
     component: User,
   },
+  {
+    path: "/admin/code",
+    name: "Code",
+    component: Code,
+  },
+  {
+    path: "/admin/authName",
+    name: "AuthName",
+    component: Dashboard,
+  },
+  {
+    path: "/admin/authRole",
+    name: "AuthRole",
+    component: AuthRole,
+  },
+  {
+    path: "/admin/authGrant",
+    name: "AuthGrant",
+    component: AuthGrant,
+  },
+
+
+
 
 
   {
