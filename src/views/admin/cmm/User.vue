@@ -112,6 +112,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import axios from 'axios'
+import apiUrl from '/src/assets/base';
 import { useTableData } from "/src/hooks/useTableData";
 
 export default defineComponent({
@@ -121,7 +122,7 @@ export default defineComponent({
     // axios.defaults.withCredentials = false;
 
     
-    axios.get("http://172.30.1.10/user/list").then((res: any)=>{
+    axios.get(apiUrl + "/user/list").then((res: any)=>{
       userList.value = res.data.data;
     });
     return {

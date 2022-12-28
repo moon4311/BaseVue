@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-8">
-      <h4 class="text-gray-600">메뉴 관리</h4>
+      <h4 class="text-gray-600">코드 관리</h4>
 
       <div class="flex flex-col mt-6">
         <div
@@ -14,16 +14,16 @@
               <thead>
                 <tr>
                   <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
-                    메뉴명
+                    코드명
                   </th>
                   <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
-                    메뉴ID
+                    코드ID
                   </th>
                   <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
-                    상위메뉴ID
+                    상위코드ID
                   </th>
                   <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
-                    경로
+                    설명
                   </th>
                   <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200">
                     정렬순서
@@ -40,16 +40,16 @@
               <tbody class="bg-white">
                 <tr v-for="(u, index) in list" :key="index">
                   <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                    {{ u.menuNm }}
+                    {{ u.codeNm }}
                   </td>
                   <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                    {{ u.menuId }}
+                    {{ u.cd }}
                   </td>
                   <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                    {{ u.upperMenuId }}
+                    {{ u.groupCd }}
                   </td>
                   <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                    {{ u.url }}
+                    {{ u.content }}
                   </td>
                   <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                     {{ u.sort }}
@@ -78,13 +78,14 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import axios from 'axios'
+import apiUrl from '/src/assets/base';
 import { useTableData } from "/src/hooks/useTableData";
 
 export default defineComponent({
   setup() {
     const { wideTableData, } = useTableData();
     const list = ref([]);
-    axios.get("http://172.30.1.10/menu/list").then((res: any)=>{
+    axios.get( apiUrl + "/code/list").then((res: any)=>{
       list.value = res.data.data;
     });
     return {

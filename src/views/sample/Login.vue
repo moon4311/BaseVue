@@ -77,6 +77,7 @@
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from 'axios'
+import apiUrl from '/src/assets/base'
 
 export default defineComponent({
   setup() {
@@ -86,7 +87,7 @@ export default defineComponent({
 
     axios.defaults.withCredentials = false;
     function login() {
-      axios.post("http://172.30.1.10/loginProcess",
+      axios.post(apiUrl + "/loginProcess",
         "username="+email.value+"&password="+password.value,
         {
           headers: {

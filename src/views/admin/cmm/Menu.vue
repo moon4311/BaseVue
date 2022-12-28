@@ -78,13 +78,14 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import axios from 'axios'
+import apiUrl from '/src/assets/base';
 import { useTableData } from "/src/hooks/useTableData";
 
 export default defineComponent({
   setup() {
     const { wideTableData, } = useTableData();
     const list = ref([]);
-    axios.get("http://172.30.1.10/menu/list").then((res: any)=>{
+    axios.get(apiUrl + "/menu/list").then((res: any)=>{
       list.value = res.data.data;
     });
     return {
