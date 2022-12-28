@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-8">
-      <h4 class="text-gray-600">사용자 관리</h4>
+      <h4 class="text-gray-600">권한명</h4>
 
       <div class="flex flex-col mt-6">
         <div
@@ -50,7 +50,7 @@
                           {{ u.userNm }}
                         </div>
                         <div class="text-sm leading-5 text-gray-500">
-                          {{ u.userId }}
+                          {{ u.role }}
                         </div>
                       </div>
                     </div>
@@ -74,7 +74,7 @@
                   </td>
 
                   <td class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">
-                    <a href="#" @click="showInfo(u.userId)"  class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                   </td>
                 </tr>
               </tbody>
@@ -90,28 +90,22 @@
 import { defineComponent, ref, onMounted } from "vue";
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
-import { useRouter } from "vue-router";
 import { useTableData } from "/src/hooks/useTableData";
 
 export default defineComponent({
   setup() {
-    const router = useRouter();
     const { wideTableData, } = useTableData();
     const userList = ref([]);
 
-    const showInfo = (uid)=>{
-      router.push(router.currentRoute.value.path+"/"+uid);
-    }
     onMounted(()=>{
       
     });
-    axios.get(apiUrl + "/user/list").then((res: any)=>{
+    axios.get(apiUrl + "/authName/list").then((res: any)=>{
       userList.value = res.data.data;
     });
     return {
       wideTableData,
-      userList,
-      showInfo
+      userList
     };
   },
 });

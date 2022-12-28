@@ -15,11 +15,12 @@ import NotFound from "./views/NotFound.vue";
 
 
 import User from "./views/admin/cmm/User.vue";
+import UserInfo from "./views/admin/cmm/UserInfo.vue";
 import Menu from "./views/admin/cmm/Menu.vue";
-import Code from "./views/admin/cmm/Code.vue";
-import AuthName from "./views/admin/cmm/Code.vue";
-import AuthRole from "./views/admin/cmm/Code.vue";
-import AuthGrant from "./views/admin/cmm/Code.vue";
+import CodeList from "./views/admin/cmm/CodeList.vue";
+import AuthName from "./views/admin/cmm/AuthName.vue";
+import AuthRole from "./views/admin/cmm/AuthRole.vue";
+import AuthGrant from "./views/admin/cmm/AuthGrant.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -40,14 +41,19 @@ const routes: RouteRecordRaw[] = [
     component: User,
   },
   {
+    path: "/admin/user/:id",
+    name: "UserInfo",
+    component: UserInfo,
+  },
+  {
     path: "/admin/code",
     name: "Code",
-    component: Code,
+    component: CodeList,
   },
   {
     path: "/admin/authName",
     name: "AuthName",
-    component: Dashboard,
+    component: AuthName,
   },
   {
     path: "/admin/authRole",
