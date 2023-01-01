@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-8">
-      <h4 class="text-gray-600">사용자 관리</h4>
+      <h4 class="text-gray-600">게시판 관리</h4>
 
       <div class="flex flex-col mt-6">
         <div
