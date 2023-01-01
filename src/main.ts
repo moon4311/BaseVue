@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
+import naive from 'naive-ui';
 import './assets/main.css';
 
 import DashboardLayout from './layout/DashboardLayout.vue';
@@ -14,4 +15,5 @@ app.component('sample-layout', SampleLayout);
 app.component('empty-layout', EmptyLayout);
 
 app.use(router);
+app.use(naive);
 app.mount('#app');

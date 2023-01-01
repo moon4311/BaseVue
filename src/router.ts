@@ -11,16 +11,20 @@ import Card from "./views/sample/Card.vue";
 import Blank from "./views/sample/Blank.vue";
 import NotFound from "./views/NotFound.vue";
 
+import EmptyLayout from "./layout/EmptyLayout.vue";
 
 
 
-import User from "./views/admin/cmm/User.vue";
+
+// import User from ;
 import UserInfo from "./views/admin/cmm/UserInfo.vue";
 import Menu from "./views/admin/cmm/Menu.vue";
 import CodeList from "./views/admin/cmm/CodeList.vue";
+import Board from "./views/admin/cmm/Board.vue";
 import AuthName from "./views/admin/cmm/AuthName.vue";
 import AuthRole from "./views/admin/cmm/AuthRole.vue";
 import AuthGrant from "./views/admin/cmm/AuthGrant.vue";
+
 
 const routes: RouteRecordRaw[] = [
   {
@@ -28,47 +32,69 @@ const routes: RouteRecordRaw[] = [
     name: "Login",
     component: Login,
     meta: { layout: "empty" },
-    },
-
-  {
-    path: "/admin/menu",
-    name: "Menu",
-    component: Menu,
   },
   {
-    path: "/admin/user",
-    name: "User",
-    component: User,
+    path: "/admin",
+    name: "사용자",
+    component: import("./layout/EmptyLayout.vue"),
+    children:[
+      {
+        path:"user",
+        name : "사용자관리",
+        component: import("./views/admin/cmm/User.vue")
+      },
+      {
+        path:"user/:id",
+        name : "사용자 상세",
+        component:()=> import("./views/admin/cmm/UserInfo.vue")
+      }
+    ]
+  },
+  
+  {
+    path: "/admin/auth",
+    name: "권한",
+    component: EmptyLayout,
+    children:[
+          {
+            path: "authName",
+            name: "권한명관리",
+            component: AuthName,
+          },
+          {
+            path: "authRole",
+            name: "권한롤관리",
+            component: AuthRole,
+          },
+          {
+            path: "authGrant",
+            name: "권한부여",
+            component: AuthGrant,
+          }
+        ]
   },
   {
-    path: "/admin/user/:id",
-    name: "UserInfo",
-    component: UserInfo,
+    path: "/admin/system",
+    name: "시스템",
+    component: EmptyLayout,
+    children:[
+      {
+        path: "code",
+        name: "공통코드관리",
+        component: CodeList,
+      },
+      {
+        path: "menu",
+        name: "메뉴관리",
+        component: Menu,
+      },
+    ]
   },
   {
-    path: "/admin/code",
-    name: "Code",
-    component: CodeList,
+    path: "/admin/board",
+    name: "게시판관리",
+    component: Board,
   },
-  {
-    path: "/admin/authName",
-    name: "AuthName",
-    component: AuthName,
-  },
-  {
-    path: "/admin/authRole",
-    name: "AuthRole",
-    component: AuthRole,
-  },
-  {
-    path: "/admin/authGrant",
-    name: "AuthGrant",
-    component: AuthGrant,
-  },
-
-
-
-
 
   {
     path: "/sample/dashboard",
