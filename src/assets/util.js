@@ -7,7 +7,7 @@ const dateFormat = (dt,sep)=>{
         + date.getDate().toString().padStart(2,'0') + sep;
 }
 
-const addDate = (dt, type, num){
+const addDate = (dt, type, num)=>{
     if(type=='Y'){
         dt.setFullYear( dt.getFulYear()+num);
     }else if(type=='m'){
