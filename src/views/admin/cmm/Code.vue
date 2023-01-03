@@ -1,7 +1,7 @@
 <template>
   <n-layout embedded content-style="padding: 24px;">
     <n-h1>
-      <n-text type="info">메뉴 관리</n-text>
+      <n-text type="info">코드 관리</n-text>
     </n-h1>
     <n-grid x-gap="12" :cols="2">
       <n-gi>
@@ -20,7 +20,7 @@
       <n-gi>
         <n-space justify="end">
           <n-button strong secondary type="info" @click="addRow">
-            하위메뉴 생성
+            코드 생성
           </n-button>
           <n-button strong secondary type="info" @click="save">
             저장
@@ -34,20 +34,20 @@
               maxWidth: '640px'
             }"
           >
-          <n-form-item label="상위메뉴" >
-            <n-input v-model:value="selectItem.upperMenuNm" disabled placeholder="" />
+          <n-form-item label="그룹코드" >
+            <n-input v-model:value="selectItem.groupCd" disabled placeholder="" />
           </n-form-item>
-            <n-form-item label="메뉴명" >
-              <n-input v-model:value="selectItem.name" placeholder="메뉴명" />
+            <n-form-item label="코드" >
+              <n-input v-model:value="selectItem.cd" placeholder="코드" />
             </n-form-item>
-            <n-form-item label="경로">
-              <n-input v-model:value="selectItem.path" placeholder="path" />
-            </n-form-item>
-            <n-form-item label="Vue 파일명 (views/{}.vue)">
-              <n-input v-model:value="selectItem.component" placeholder="component" />
+            <n-form-item label="코드명">
+              <n-input v-model:value="selectItem.nm" placeholder="코드명" />
             </n-form-item>
             <n-form-item label="정렬순서">
-              <n-input-number v-model:value="selectItem.sort" :disabled="selectItem.menuId!==''" placeholder="Input" />
+              <n-input-number v-model:value="selectItem.sort" readonly placeholder="Input" />
+            </n-form-item>
+            <n-form-item label="메모">
+              <n-input v-model:value="selectItem.component" placeholder="component" />
             </n-form-item>
           </n-form>
         </n-card>
@@ -69,19 +69,18 @@ export default defineComponent({
     const selectItem = ref({});
 
     const search = ()=>{
-      axios.get(apiUrl + "/menu/list").then((res: any)=>{
+      list.value = [];
+      axios.get(apiUrl + "/code/list").then((res: any)=>{
       var data = res.data.data;
       //메뉴형태로 변경
       _.forEach(data,(a)=>{ 
-        if(a.upperMenuId!==null) return;
-        a.label = a.name + " "+a.path;
-        a.key = a.menuId;
-        a.upperMenuNm = "";
+        if(a.groupCd!=="GROUP") return;
+        a.label = a.nm;
+        a.key = a.cd;
         var children = _.filter( data, (b)=>{ 
-          if(a.menuId === b.upperMenuId){
-            b.upperMenuNm=a.name;
-            b.label = b.name + " /" + b.path;
-            b.key = b.menuId;
+          if(a.cd === b.groupCd){
+            b.label = b.nm;
+            b.key = b.cd;
             return true;
           } 
         });
@@ -96,31 +95,35 @@ export default defineComponent({
       selectItem.value = obj;
     }
     
-    //하위메뉴 생성
+    //코드 생성
     const addRow = ()=>{
-      if(selectItem.value.menuId==="") return false;
       var sort = 1;
-      if(selectItem.value.children) sort = selectItem.value.children.length+1;
-      selectItem.value = {
-        menuId : "",
-        upperMenuId : selectItem.value.menuId,
-        name : "",
-        upperMenuNm : selectItem.value.name,
-        path : "",
-        level : selectItem.value.level + 1,
+      var obj = selectItem.value;
+      if(obj.children) sort = obj.children.length+1;
+      var groupCd = (obj.groupCd==="GROUP") ? obj.cd : obj.groupCd;
+      var row = {
+        groupCd : groupCd,
+        cd : "",
+        nm : "",
         sort : sort
       };
+
+      selectItem.value = row;
     }
 
     //저장
     const save = () =>{
-      if(selectItem.value.name===undefined){
-        alert("메뉴명을 입력해주세요");
+      if(selectItem.value.nm===undefined || selectItem.value.nm===""){
+        alert("코드명을 입력해주세요");
         return false;
       }
-      axios.post(apiUrl + "/menu/save", selectItem.value ).then((res)=>{
+      if(selectItem.value.groupCd===undefined || selectItem.value.groupCd===""){
+        selectItem.value.groupCd = "GROUP";
+      }
+      axios.post(apiUrl + "/code/save", selectItem.value ).then((res)=>{
         if(res.status==200)
           alert("저장 되었습니다.");
+        search();
       });
     }
 
