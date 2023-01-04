@@ -1,3 +1,17 @@
+let router = null;
+const setRouter = (r)=>{
+    router = r;
+}
+
+// 등록
+const add = ()=>{
+    router.push(router.currentRoute.value.path+"Add");
+}
+// 상세
+const showInfo = (id)=>{
+    router.push(router.currentRoute.value.path+"/"+id);
+}
+
 const dateFormat = (dt,sep)=>{
     if(dt == '') return dt;
     if(sep ==null ) sep ='';
@@ -18,5 +32,4 @@ const addDate = (dt, type, num)=>{
     return dt;
 }
 
-
-export { dateFormat, addDate }
+export { setRouter, add, showInfo, dateFormat, addDate }

@@ -22,6 +22,9 @@
         </div>
         <!-- Table -->
         <div class="flex flex-col mt-6">
+          <n-button type="info" @click="util.add">
+              등록
+            </n-button>
           <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" >
             <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg" >
               <n-data-table
@@ -40,12 +43,13 @@
 import { defineComponent, ref, h, onMounted } from "vue";
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
+import * as util from '/src/assets/util';
 import { useRouter } from "vue-router";
 import { NButton, useMessage } from "naive-ui";
 
 export default defineComponent({
   setup() {
-    const router = useRouter();
+    util.setRouter( useRouter() );
     const searchValue = ref("");
     const columns = [
     {
@@ -70,7 +74,7 @@ export default defineComponent({
             strong: true,
             tertiary: false,
             size: "small",
-            onClick: () => showInfo(row)
+            onClick: () => util.showInfo(row.seq)
           },
           { default: () => "Edit" }
         );
@@ -78,9 +82,6 @@ export default defineComponent({
     }
   ];
     const list = ref([]);
-    const showInfo = (row: any)=>{
-      router.push(router.currentRoute.value.path+"/"+row.userId);
-    }
 
     const search = ()=>{
       axios.get(apiUrl + "/board/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
@@ -97,7 +98,7 @@ export default defineComponent({
       search,
       columns,
       list,
-      showInfo
+      util
     };
   },
 });

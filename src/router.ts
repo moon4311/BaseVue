@@ -3,7 +3,6 @@ import _ from 'lodash'
 
 // Sample
 import Login from "./views/Login.vue";
-
 import axios from 'axios';
 import apiUrl from './assets/base';
 
@@ -22,6 +21,13 @@ function getMenu(b: any){
   return menu;
 }
 
+function push(target:any, b: any){
+  if(b.component!==null && b.component.indexOf("List")>0){
+      target.push( getMenu({ path : b.path+"/:id", name : b.name+"상세", component: b.component.replace("List","Info")}) );
+      target.push( getMenu({ path : b.path+"Add", name : b.name+"등록", component: b.component.replace("List","Info")})  );
+  }
+}
+
 await axios.get(apiUrl+"/menu/list").then((res)=>{
   var list = res.data.data;
   //childen 생성
@@ -31,11 +37,7 @@ await axios.get(apiUrl+"/menu/list").then((res)=>{
         if(a.menuId == b.upperMenuId){
           list[idx] = getMenu(b);
           a.children.push( list[idx] );
-          if(b.component.indexOf("List")>0){
-            a.children.push(
-              getMenu({ path : b.path+"/:id", name : b.name+"상세", component: b.component.replace("List","Info")})
-            );
-          }
+          push(a.children,b);
         }// if
       });//forEach
       if(a.children.length==0) delete a.children;
@@ -44,6 +46,7 @@ await axios.get(apiUrl+"/menu/list").then((res)=>{
   list.forEach((a: any)=>{ 
     if(a.menuId){
       routes.push( getMenu(a) );
+      push(routes,a);
     }
   });
 });

@@ -22,6 +22,9 @@
         </div>
         <!-- Table -->
         <div class="flex flex-col mt-6">
+          <n-button type="info" @click="util.add">
+              등록
+            </n-button>
           <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" >
             <div class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg" >
               <n-data-table
@@ -39,51 +42,47 @@
 <script lang="ts">
 import { defineComponent, ref, h, onMounted } from "vue";
 import axios from 'axios'
+import * as util from '/src/assets/util';
 import apiUrl from '/src/assets/base';
 import { useRouter } from "vue-router";
-import { useTableData } from "/src/hooks/useTableData";
 import { NButton, useMessage } from "naive-ui";
 
 export default defineComponent({
   setup() {
-    const router = useRouter();
-    const { wideTableData, } = useTableData();
+    util.setRouter(useRouter());
     const searchValue = ref("");
     const columns = [
-    {
-      title: "ID",
-      key: "userId"
-    },
-    {
-      title: "이름",
-      key: "userNm"
-    },
-    {
-      title: "연락처",
-      key: "tel"
-    },
-    {
-      title: "",
-      key: "userId",
-      render(row) {
-        return h(
-          NButton,
-          {
-            strong: true,
-            tertiary: false,
-            size: "small",
-            onClick: () => showInfo(row)
-          },
-          { default: () => "Edit" }
-        );
-      }
-    }
-  ];
+                      {
+                        title: "ID",
+                        key: "userId"
+                      },
+                      {
+                        title: "이름",
+                        key: "userNm"
+                      },
+                      {
+                        title: "연락처",
+                        key: "tel"
+                      },
+                      {
+                        title: "",
+                        key: "userId",
+                        render(row) {
+                          return h(
+                            NButton,
+                            {
+                              strong: true,
+                              tertiary: false,
+                              size: "small",
+                              onClick: () => util.showInfo(row.userId)
+                            },
+                            { default: () => "Edit" }
+                          );
+                        }
+                      }
+                    ];
     const userList = ref([]);
-    const showInfo = (row)=>{
-      router.push(router.currentRoute.value.path+"/"+row.userId);
-    }
-
+    //검색
     const search = ()=>{
       axios.get(apiUrl + "/user/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
         userList.value = res.data.data;
@@ -95,12 +94,11 @@ export default defineComponent({
     });
     
     return {
-      wideTableData,
       searchValue,
       search,
+      util,
       columns,
-      userList,
-      showInfo
+      userList
     };
   },
 });
