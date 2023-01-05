@@ -84,7 +84,7 @@ export default defineComponent({
     const list = ref([]);
 
     const search = ()=>{
-      axios.get(apiUrl + "/board/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
+      axios.get(apiUrl + "/authRole/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
         list.value = res.data.data;
       });
     }

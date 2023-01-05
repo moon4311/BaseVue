@@ -8,7 +8,7 @@
           <div class="flex items-center px-4 py-4 space-x-4 overflow-x-auto bg-white rounded-md">
             <div class="relative mx-4 lg:mx-0">
               <n-form inline>
-                <n-form-item label="제목" path="searchValue">
+                <n-form-item label="권한코드" path="searchValue">
                   <n-input v-model:value="searchValue" type="text" placeholder="Search" />
                 </n-form-item>
                 <n-form-item>
@@ -53,20 +53,20 @@ export default defineComponent({
     const searchValue = ref("");
     const columns = [
     {
-      title: "제목",
-      key: "title"
+      title: "권한코드",
+      key: "authCd"
     },
     {
-      title: "등록자",
-      key: "registId"
+      title: "권한명",
+      key: "authNm"
     },
     {
-      title: "등록일",
-      key: "registDt"
+      title: "권한설명",
+      key: "authDc"
     },
     {
       title: "",
-      key: "userId",
+      key: "authCd",
       render(row : any) {
         return h(
           NButton,
@@ -74,7 +74,7 @@ export default defineComponent({
             strong: true,
             tertiary: false,
             size: "small",
-            onClick: () => util.showInfo(row.seq)
+            onClick: () => util.showInfo(row.authCd)
           },
           { default: () => "Edit" }
         );
@@ -84,7 +84,7 @@ export default defineComponent({
     const list = ref([]);
 
     const search = ()=>{
-      axios.get(apiUrl + "/board/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
+      axios.get(apiUrl + "/authName/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
         list.value = res.data.data;
       });
     }
