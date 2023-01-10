@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="text-3xl font-semibold text-gray-700">사용자 정보</h3>
+    <h3 class="text-3xl font-semibold text-gray-700">공고 정보</h3>
 
     <div class="mt-8">
       <n-form ref="formRef" :model="model" :rules="rules">
