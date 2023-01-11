@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
 import { useRouter } from "vue-router";

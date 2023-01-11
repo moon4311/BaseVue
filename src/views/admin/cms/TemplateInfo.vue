@@ -4,16 +4,16 @@
 
     <div class="mt-8">
       <n-form-item path="id" label="ID">
-        <n-input v-model:value="param.templateId" />
+        <n-input v-model:value="params.templateId" />
       </n-form-item>
       <n-form-item path="nm" label="이름">
-        <n-input v-model:value="param.templateNm"/>
+        <n-input v-model:value="params.templateNm"/>
       </n-form-item>
       <n-form-item path="contents" label="내용">
-        <n-input v-model:value="param.contents"/>
+        <n-input type="textarea" v-model:value="params.content"/>
       </n-form-item>
       <n-form-item path="memo" label="메모">
-        <n-input v-model:value="param.memo"/>
+        <n-input v-model:value="params.memo"/>
       </n-form-item>
       <n-row :gutter="[0, 24]">
         <n-col :span="24">
@@ -28,25 +28,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
-import { useRouter } from "vue-router";
-import { FormInst, FormItemInst, FormItemRule, FormValidationError, useMessage, FormRules } from 'naive-ui'
+import { useRoute } from "vue-router";
+import { useMessage } from 'naive-ui'
 
 export default defineComponent({
   setup () {
     const message = useMessage()
-    const param= ref({})
+    const params= ref({})
     
+    onMounted( ()=>{
+      axios.get(apiUrl + "/template/info/"+useRoute().params.id ).then(res=>{
+        params.value=res.data.data;
+      })
+    });
     const save = ()=>{
-      axios.post(apiUrl + "/template/save", param.value ).then(res=>{
+      axios.post(apiUrl + "/template/save", params.value ).then(res=>{
         alert("저장되었습니다.");
       });
     }
     
     return {
-      param,
+      params,
       save
     }
   }

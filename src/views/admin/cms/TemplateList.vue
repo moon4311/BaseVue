@@ -36,11 +36,11 @@ export default defineComponent({
     const columns = [
                       {
                         title: "ID",
-                        key: "userId"
+                        key: "templateId"
                       },
                       {
                         title: "이름",
-                        key: "userNm"
+                        key: "templateNm"
                       },
                       {
                         title: "연락처",
@@ -56,7 +56,7 @@ export default defineComponent({
                               strong: true,
                               tertiary: false,
                               size: "small",
-                              onClick: () => util.showInfo(row.userId)
+                              onClick: () => util.showInfo(row.sno  )
                             },
                             { default: () => "Edit" }
                           );
@@ -66,7 +66,7 @@ export default defineComponent({
     const userList = ref([]);
     //검색
     const search = ()=>{
-      axios.get(apiUrl + "/user/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
+      axios.get(apiUrl + "/template/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
         userList.value = res.data.data;
       });
     }

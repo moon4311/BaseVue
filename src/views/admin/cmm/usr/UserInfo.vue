@@ -19,17 +19,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
-import { useRouter } from "vue-router";
-import { FormInst, FormItemInst, FormItemRule, FormValidationError, useMessage, FormRules } from 'naive-ui'
+import { useRoute } from "vue-router";
+import { useMessage } from 'naive-ui'
 
 
 export default defineComponent({
   setup () {
     const message = useMessage()
     const params = ref({})
+
+    onMounted( ()=>{
+      axios.get(apiUrl + "/user/info/"+useRoute().params.id ).then(res=>{
+        params.value=res.data.data;
+      })
+    });
 
     const save = ()=>{
       axios.post(apiUrl+"/user/save",params).then(res=>{

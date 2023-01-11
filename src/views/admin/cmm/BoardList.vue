@@ -9,7 +9,7 @@
             <div class="relative mx-4 lg:mx-0">
               <n-form inline>
                 <n-form-item label="제목" path="searchValue">
-                  <n-input v-model:value="searchValue" type="text" placeholder="Search" />
+                  <n-input v-model:value="params.userNm" type="text" placeholder="Search" />
                 </n-form-item>
                 <n-form-item>
                   <n-button @click="search">
@@ -50,7 +50,7 @@ import { NButton, useMessage } from "naive-ui";
 export default defineComponent({
   setup() {
     util.setRouter( useRouter() );
-    const searchValue = ref("");
+    const params = ref({});
     const columns = [
     {
       title: "제목",
@@ -84,7 +84,7 @@ export default defineComponent({
     const list = ref([]);
 
     const search = ()=>{
-      axios.get(apiUrl + "/board/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
+      axios.get(apiUrl + "/board/list",{params: params.value } ).then((res: any)=>{
         list.value = res.data.data;
       });
     }
@@ -94,7 +94,7 @@ export default defineComponent({
     });
     
     return {
-      searchValue,
+      params,
       search,
       columns,
       list,
