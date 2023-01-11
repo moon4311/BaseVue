@@ -19,12 +19,9 @@
       </n-gi>
       <n-gi>
         <n-space justify="end">
-          <n-button strong secondary type="info" @click="addRow">
-            하위메뉴 생성
-          </n-button>
-          <n-button strong secondary type="info" @click="save">
-            저장
-          </n-button>
+          <n-button strong secondary type="info" @click="addRow">하위메뉴 생성</n-button>
+          <n-button strong secondary type="info" @click="save">저장</n-button>
+          <n-button strong secondary type="info" @click="del">삭제</n-button>
         </n-space>
         <n-card>
           <n-form
@@ -72,6 +69,7 @@ export default defineComponent({
       axios.get(apiUrl + "/menu/list").then((res: any)=>{
       var data = res.data.data;
       //메뉴형태로 변경
+      list.value = [];
       _.forEach(data,(a)=>{ 
         if(a.upperMenuId!==null) return;
         a.label = a.name + " "+a.path;
@@ -119,8 +117,19 @@ export default defineComponent({
         return false;
       }
       axios.post(apiUrl + "/menu/save", selectItem.value ).then((res)=>{
-        if(res.status==200)
+        if(res.status==200){
           alert("저장 되었습니다.");
+          search();
+        }
+      });
+    }
+    //삭제
+    const del = ()=>{
+      axios.post(apiUrl + "/menu/del", selectItem.value ).then(res =>{
+        if(res.status==200){
+          alert("삭제되었습니다.");
+          search();
+        }
       });
     }
 
@@ -134,7 +143,7 @@ export default defineComponent({
       search,
       selectItem,
       list,
-      addRow, save,
+      addRow, save, del,
       pattern: ref(''),
       showIrrelevantNodes: ref(false),
       nodeProps: ({ option }: { option: TreeOption }) => {
