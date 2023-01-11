@@ -9,7 +9,7 @@ const add = ()=>{
 }
 // 상세
 const showInfo = (id)=>{
-    router.push(router.currentRoute.value.path+"/"+id);
+    router.push({path : router.currentRoute.value.path+"/"+id, params : { 'id': id}});
 }
 
 const dateFormat = (dt,sep)=>{
