@@ -22,7 +22,7 @@
 import { defineComponent, ref, onMounted } from "vue";
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { FormInst, FormItemInst, FormItemRule, FormValidationError, useMessage, FormRules } from 'naive-ui'
 
 
@@ -31,8 +31,17 @@ export default defineComponent({
     const message = useMessage()
     const params = ref({})
 
+    onMounted( ()=>{
+      const id = useRoute().params.id;
+      if(id){
+        axios.get(apiUrl + "/authName/info/"+ id ).then(res=>{
+          params.value=res.data.data;
+        })
+      }
+    });
+
     const save = ()=>{
-      axios.post(apiUrl+"/authName/save",params).then(res=>{
+      axios.post(apiUrl+"/authName/save",params.value).then(res=>{
         console.log(res);
       });
     }
