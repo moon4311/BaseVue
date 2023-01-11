@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h3 class="text-3xl font-semibold text-gray-700">게시판 정보</h3>
+    <h3 class="text-3xl font-semibold text-gray-700">템플릿 정보</h3>
 
     <div class="mt-8">
-      <n-form-item path="title" label="제목">
-        <n-input v-model:value="param.title" />
+      <n-form-item path="id" label="ID">
+        <n-input v-model:value="param.templateId" />
       </n-form-item>
-      <n-form-item path="name" label="이름">
-        <n-input v-model:value="param.name"/>
+      <n-form-item path="nm" label="이름">
+        <n-input v-model:value="param.templateNm"/>
       </n-form-item>
       <n-form-item path="contents" label="내용">
         <n-input v-model:value="param.contents"/>
@@ -40,7 +40,7 @@ export default defineComponent({
     const param= ref({})
     
     const save = ()=>{
-      axios.post(apiUrl + "/board/save", param.value ).then(res=>{
+      axios.post(apiUrl + "/template/save", param.value ).then(res=>{
         alert("저장되었습니다.");
       });
     }
