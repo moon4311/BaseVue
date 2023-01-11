@@ -21,7 +21,7 @@
         <n-space justify="end">
           <n-button strong secondary type="info" @click="addRow">하위메뉴 생성</n-button>
           <n-button strong secondary type="info" @click="save">저장</n-button>
-          <n-button strong secondary type="info" @click="del">삭제</n-button>
+          <n-button strong secondary type="error" @click="del">삭제</n-button>
         </n-space>
         <n-card>
           <n-form

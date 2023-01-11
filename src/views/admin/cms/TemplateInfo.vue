@@ -40,9 +40,12 @@ export default defineComponent({
     const params= ref({})
     
     onMounted( ()=>{
-      axios.get(apiUrl + "/template/info/"+useRoute().params.id ).then(res=>{
-        params.value=res.data.data;
-      })
+      const id = useRoute().params.id;
+      if(id){
+        axios.get(apiUrl + "/template/info/"+id ).then(res=>{
+          params.value=res.data.data;
+        })
+      }
     });
     const save = ()=>{
       axios.post(apiUrl + "/template/save", params.value ).then(res=>{
