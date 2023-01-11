@@ -32,13 +32,16 @@ export default defineComponent({
     const params = ref({})
 
     onMounted( ()=>{
-      axios.get(apiUrl + "/user/info/"+useRoute().params.id ).then(res=>{
-        params.value=res.data.data;
-      })
+      const id = useRoute().params.id;
+      if(id){
+        axios.get(apiUrl + "/user/info/"+ id ).then(res=>{
+          params.value=res.data.data;
+        })
+      }
     });
 
     const save = ()=>{
-      axios.post(apiUrl+"/user/save",params).then(res=>{
+      axios.post(apiUrl+"/user/save",params.value).then(res=>{
         console.log(res);
       });
     }

@@ -19,12 +19,9 @@
       </n-gi>
       <n-gi>
         <n-space justify="end">
-          <n-button strong secondary type="info" @click="addRow">
-            코드 생성
-          </n-button>
-          <n-button strong secondary type="info" @click="save">
-            저장
-          </n-button>
+          <n-button strong secondary type="info" @click="addRow">코드 생성</n-button>
+          <n-button strong secondary type="info" @click="save">저장</n-button>
+          <n-button strong secondary type="error" @click="del">삭제</n-button>
         </n-space>
         <n-card>
           <n-form
@@ -127,6 +124,15 @@ export default defineComponent({
       });
     }
 
+    //삭제
+    const del = ()=>{
+      axios.post(apiUrl + "/code/del", selectItem.value ).then(res =>{
+        if(res.status==200){
+          alert("삭제되었습니다.");
+          search();
+        }
+      });
+    }
 
     onMounted(()=>{
       search();
@@ -137,7 +143,7 @@ export default defineComponent({
       search,
       selectItem,
       list,
-      addRow, save,
+      addRow, save, del,
       pattern: ref(''),
       showIrrelevantNodes: ref(false),
       nodeProps: ({ option }: { option: TreeOption }) => {
