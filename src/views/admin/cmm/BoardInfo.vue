@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <n-layout embedded content-style="padding: 24px;">
     <h3 class="text-3xl font-semibold text-gray-700">게시판 정보</h3>
 
     <div class="mt-8">
@@ -24,7 +24,7 @@
         </n-col>
       </n-row>
     </div>
-  </div>
+  </n-layout>
 </template>
 
 <script lang="ts">
