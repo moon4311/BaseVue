@@ -19,11 +19,8 @@
       </n-gi>
       <n-gi>
         <n-space justify="end">
-          <n-input v-model:value="vueFile.sno" placeholder="템플릿Sno"></n-input>
-          <n-input v-model:value="vueFile.path" placeholder="경로 ( views/ )"></n-input>
-          <n-input v-model:value="vueFile.fileNm" placeholder="파일명"></n-input>
-          <n-input v-model:value="vueFile.menuNm" placeholder="메뉴명"></n-input>
-          <n-button strong secondary type="warning" @click="makeVue">Vue 생성</n-button>
+          <!-- <n-input v-model:value="vueFile.sno" placeholder="템플릿Sno"></n-input> -->
+          
           <n-button strong secondary type="info" @click="addRow">하위메뉴 생성</n-button>
           <n-button strong secondary type="info" @click="save">저장</n-button>
           <n-button strong secondary type="error" @click="del">삭제</n-button>
@@ -36,17 +33,20 @@
               maxWidth: '640px'
             }"
           >
+
           <n-form-item label="상위메뉴" >
             <n-input v-model:value="selectItem.upperMenuNm" disabled placeholder="" />
           </n-form-item>
             <n-form-item label="메뉴명" >
               <n-input v-model:value="selectItem.name" placeholder="메뉴명" />
             </n-form-item>
-            <n-form-item label="경로">
-              <n-input v-model:value="selectItem.path" placeholder="path" />
+            <n-form-item label="URL 경로">
+              <n-input v-model:value="selectItem.path" placeholder="URL 경로" />
             </n-form-item>
-            <n-form-item label="Vue 파일명 (views/{}.vue)">
-              <n-input v-model:value="selectItem.component" placeholder="component" />
+            <n-form-item label="Vue 파일 (views/{}.vue)">
+              <n-input-group>
+                <n-input v-model:value="selectItem.component" placeholder="파일명 (.vue 제외 )" />
+              </n-input-group>
             </n-form-item>
             <n-form-item label="정렬순서">
               <n-input-number v-model:value="selectItem.sort" :disabled="selectItem.menuId!==''" placeholder="Input" />
@@ -71,9 +71,7 @@ import { TreeOption } from 'naive-ui'
 export default defineComponent({
   setup() {
     const list = ref([] as any);
-    const vueFile = ref({});
     const selectItem = ref({});
-
     const search = ()=>{
       axios.get(apiUrl + "/menu/list").then((res: any)=>{
       var data = res.data.data;
@@ -103,13 +101,6 @@ export default defineComponent({
       selectItem.value = obj;
     }
     
-    //Vue 생성
-    const makeVue = () =>{
-      axios.post(apiUrl + "/template/make", vueFile.value ).then(res=>{
-        console.log(res);
-      });
-    }
-
 
     //하위메뉴 생성
     const addRow = ()=>{
@@ -160,9 +151,8 @@ export default defineComponent({
       search,
       selectItem,
       list,
-      vueFile,
       // function
-      makeVue, addRow, save, del,
+      addRow, save, del,
       pattern: ref(''),
       showIrrelevantNodes: ref(false),
       nodeProps: ({ option }: { option: TreeOption }) => {
