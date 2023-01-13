@@ -77,7 +77,7 @@ export default defineComponent({
             onClick: () => util.showInfo(row.seq)
           },
           { default: () => "Edit" }
-        );
+        ) ;
       }
     }
   ];
