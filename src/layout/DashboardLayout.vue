@@ -1,29 +1,36 @@
 <template>
-  <div class="flex h-screen bg-gray-200 font-roboto">
-    <Sidebar />
-
-    <div class="flex-1 flex flex-col overflow-hidden">
-      <Header />
-
-      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-        <div class="container mx-auto px-4 py-4">
-          <slot />
-        </div>
-      </main>
-    </div>
-  </div>
+    <n-space vertical>
+      <n-layout has-sider>
+        <n-layout-sider
+        show-trigger="arrow-circle"
+        >
+          <Logo :collapsed="collapsed" />
+          <Sidebar />
+        </n-layout-sider>
+        <n-layout >
+          <n-layout-header>
+            <Header />
+          </n-layout-header>
+          <n-layout-content content-style="padding: 24px;">
+              
+                <slot />
+              
+          </n-layout-content>
+          <!-- <n-layout-footer>Chengfu Road</n-layout-footer> -->
+        </n-layout>
+      </n-layout>
+    </n-space>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script lang="ts" setup>
+import { defineComponent, unref, ref, computed, onMounted } from "vue";
 
-import Sidebar from "../components/Sidebar.vue";
-import Header from "../components/Header.vue";
+import Sidebar from "./components/Sidebar.vue";
+import Header from "./components/Header.vue";
+import Logo from './components/Logo.vue';
+import PageHeader  from './components/Header.vue';
 
-export default defineComponent({
-  components: {
-    Header,
-    Sidebar,
-  },
-});
+const collapsed = ref<boolean>(false);
+
+
 </script>
