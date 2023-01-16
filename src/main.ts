@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import naive from 'naive-ui';
+import axios from 'axios';
 import './assets/main.css';
 
 import _ from 'lodash';
