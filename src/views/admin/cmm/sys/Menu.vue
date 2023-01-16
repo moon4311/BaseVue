@@ -20,9 +20,9 @@
       <n-gi>
         <n-space justify="end">
           <!-- <n-input v-model:value="vueFile.sno" placeholder="템플릿Sno"></n-input> -->
-          
+          <n-button strong secondary type="default" @click="selectItem.value={}">초기화</n-button>
           <n-button strong secondary type="info" @click="addRow">하위메뉴 생성</n-button>
-          <n-button strong secondary type="info" @click="save">저장</n-button>
+          <n-button strong secondary type="success" @click="save">저장</n-button>
           <n-button strong secondary type="error" @click="del">삭제</n-button>
         </n-space>
         <n-card>
