@@ -17,58 +17,59 @@
         </n-space>
     </n-form-item>
 
+    <n-form-item label="메뉴명">
+      <n-input v-model:value="vueFile.title" placeholder="메뉴명" />
+    </n-form-item>
+
+    <n-form-item label="컬럼 목록">
+      <n-input v-model:value="vueFile.columns" placeholder="컬럼목록" />
+    </n-form-item>
+
+    <n-form-item label="API 경로">
+      <n-input v-model:value="vueFile.apiPath" placeholder="API 경로" />
+    </n-form-item>
+
         <n-button strong secondary type="warning" @click="makeVue">Vue 생성</n-button>
     </n-layout>
   </template>
   
-  <script lang="ts">
+  <script lang="ts" setup>
   import { defineComponent, onMounted, ref } from "vue";
   import axios from 'axios'
   import apiUrl from '/src/assets/base';
   import _ from 'lodash';
   
-  export default defineComponent({
-    setup() {
-      const list = ref([] as any);
-      const vueFile = ref({});
-      const templateOpts = ref([]);
-      const search = ()=>{
-        axios.get(apiUrl + "/menu/list").then((res: any)=>{
-            list.value = res.data.data;
-        });
-      }
-  
-      const getTmeplate = () =>{
-        axios.get(apiUrl + "/template/list" ).then(res =>{
-          const list = res.data.data;
-          _.each(list, (o => {
-              templateOpts.value.push({ label : o.templateNm, value : o.sno});
-          }));
-        });
-      }
+  const list = ref([] as any);
+  const vueFile = ref({});
+  const templateOpts = ref([] as any);
+  const search = ()=>{
+    axios.get(apiUrl + "/menu/list").then((res: any)=>{
+        list.value = res.data.data;
+    });
+  }
 
-      
-      //Vue 생성
-      const makeVue = () =>{
-        axios.post(apiUrl + "/template/make", vueFile.value ).then(res=>{
-          alert("생성되었습니다.");
-        });
-      }
+  const getTmeplate = () =>{
+    axios.get(apiUrl + "/template/list" ).then(res =>{
+      const list = res.data.data;
+      _.each(list, (o => {
+          templateOpts.value.push({ label : o.templateNm, value : o.sno});
+      }));
+    });
+  }
+
   
-  
-      onMounted(()=>{
-        getTmeplate();
-        search();
-      });
-  
-  
-      return {
-        templateOpts,
-        list,
-        vueFile,
-        makeVue
-      };
-    },
+  //Vue 생성
+  const makeVue = () =>{
+    axios.post(apiUrl + "/template/make", vueFile.value ).then(res=>{
+      alert("생성되었습니다.");
+    });
+  }
+
+
+  onMounted(()=>{
+    getTmeplate();
+    search();
   });
+  
   </script>
   
