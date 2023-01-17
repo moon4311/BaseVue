@@ -1,3 +1,6 @@
+<!-- http://localhost:8001/#/list/basic-list -->
+
+
 <template>
   <div>
       <h3 class="text-3xl font-medium text-gray-700">사용자 관리</h3>
