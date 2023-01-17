@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent, ref, h, onMounted } from "vue";
 import axios from 'axios'
 import * as util from '/src/assets/util';
@@ -29,59 +29,48 @@ import apiUrl from '/src/assets/base';
 import { useRouter } from "vue-router";
 import { NButton, useMessage } from "naive-ui";
 
-export default defineComponent({
-  setup() {
-    util.setRouter(useRouter());
-    const searchValue = ref("");
-    const columns = [
-                      {
-                        title: "ID",
-                        key: "templateId"
-                      },
-                      {
-                        title: "이름",
-                        key: "templateNm"
-                      },
-                      {
-                        title: "연락처",
-                        key: "tel"
-                      },
-                      {
-                        title: "",
-                        key: "userId",
-                        render(row) {
-                          return h(
-                            NButton,
-                            {
-                              strong: true,
-                              tertiary: false,
-                              size: "small",
-                              onClick: () => util.showInfo(row.sno  )
-                            },
-                            { default: () => "Edit" }
-                          );
-                        }
-                      }
-                    ];
-    const userList = ref([]);
-    //검색
-    const search = ()=>{
-      axios.get(apiUrl + "/template/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
-        userList.value = res.data.data;
-      });
-    }
+util.setRouter(useRouter());
+const searchValue = ref("");
+const columns = [
+                  {
+                    title: "ID",
+                    key: "templateId"
+                  },
+                  {
+                    title: "이름",
+                    key: "templateNm"
+                  },
+                  {
+                    title: "연락처",
+                    key: "tel"
+                  },
+                  {
+                    title: "",
+                    key: "userId",
+                    render(row: any) {
+                      return h(
+                        NButton,
+                        {
+                          strong: true,
+                          tertiary: false,
+                          size: "small",
+                          onClick: () => util.showInfo(row.sno  )
+                        },
+                        { default: () => "Edit" }
+                      );
+                    }
+                  }
+                ];
+const userList = ref([]);
+//검색
+const search = ()=>{
+  axios.get(apiUrl + "/template/list",{params:{ userNm : searchValue.value}}).then((res: any)=>{
+    userList.value = res.data.data;
+  });
+}
 
-    onMounted(()=>{
-      search();
-    });
-    
-    return {
-      searchValue,
-      search,
-      util,
-      columns,
-      userList
-    };
-  },
+onMounted(()=>{
+  search();
 });
+    
 </script>

@@ -15,7 +15,7 @@ let routes: any[] = [{
 ];
 
 function getMenu(b: any){
-  var menu = { path : b.path, name : b.name, component : ()=> import("./layout/EmptyLayout.vue") };
+  var menu = { path : b.path, name : b.name, children: undefined, component : ()=> import("./layout/EmptyLayout.vue") };
   if(b.children) menu.children = b.children;
   else menu.component = () => import( "./views/" + b.component + ".vue") ;
   return menu;
