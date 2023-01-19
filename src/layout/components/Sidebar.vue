@@ -1,5 +1,5 @@
 <template>
-  <n-menu :options="menuOptions" />
+  <n-menu :options="menuOptions"  @update:value="clickMenuItem"/>
 </template>
 
 <script lang="ts">
@@ -10,15 +10,20 @@ import apiUrl from '/src/assets/base'
 import { NIcon, useMessage } from 'naive-ui'
 import type { MenuOption } from 'naive-ui'
 import _ from 'lodash';
+import { useRoute, useRouter } from 'vue-router';
+import { useTabsViewStore } from '../../store/modules/tagsView';
 
 function getMenu(menu: any, children?: any){
-  var s = {key : menu.menuId , label : menu.name};
+  var s = {key : menu.menuId , label : menu.name, path: menu.path, name: menu.name, component: menu.component};
   if(children && children.length>0) s['children'] = children;
   else {
     s.label = () => h( RouterLink
                       ,{ to: { name: menu.name } }
                       ,{ default: () => menu.name }
                     );
+    s.component = menu.component
+    s.name = menu.name
+    s.path = menu.path
   }
   return s;
 }
@@ -26,7 +31,7 @@ function getMenu(menu: any, children?: any){
 export default defineComponent({
   setup () {
     const menuOptions = ref([] as MenuOption[]);
-
+    
     onMounted(async()=>{
       axios.get(apiUrl + "/menu/list").then((res: any)=>{
         var list = res.data.data;
@@ -41,8 +46,17 @@ export default defineComponent({
         });//forEach
       });
     });
+
+    const tabsViewStore = useTabsViewStore();
+    const clickMenuItem = (key: string, menu: any) => {
+      const clickMenuPath =  { "path": menu.path , "name": menu.name }
+      console.log(clickMenuPath)
+      tabsViewStore.addTabs(clickMenuPath)
+    }
+    
     return {
-      menuOptions
+      menuOptions,
+      clickMenuItem
     }
   }
 })
