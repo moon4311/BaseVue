@@ -11,8 +11,10 @@
           <n-layout-header>
             <Header />
           </n-layout-header>
+                <div>
+                  <tag-view  />
+                </div>
           <n-layout-content content-style="padding: 24px;">
-              
                 <slot />
               
           </n-layout-content>
@@ -29,6 +31,7 @@ import Sidebar from "./components/Sidebar.vue";
 import Header from "./components/Header.vue";
 import Logo from './components/Logo.vue';
 import PageHeader  from './components/Header.vue';
+import tagView from '../components/tagView.vue';
 
 const collapsed = ref<boolean>(false);
 
