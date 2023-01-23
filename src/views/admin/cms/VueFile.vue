@@ -1,23 +1,21 @@
 <template>
-    <n-layout embedded content-style="padding: 24px;">
-      <n-h1>
-        <n-text type="info">Vue 파일 관리</n-text>
-      </n-h1>
-
+  <n-card>
+    <n-h3>Vue 파일 관리</n-h3>
+      <p>템플릿을 이용한 Vue 파일 생성</p>
+  </n-card>
+  <n-card class="mt-4">
+    <div>
       <n-form-item label="파일">
-          <n-space vertical>
-              <n-input-group>
-                  <n-input v-model:value="vueFile.path" placeholder=" views/ 하위경로" />
-                  <n-input value="/" disabled />
-                  <n-input v-model:value="vueFile.fileNm" placeholder="파일명" />.vue
-              </n-input-group>
-          </n-space>
+        <n-space>
+          <n-input v-model:value="vueFile.path" placeholder=" views/ 하위경로" />
+          <n-input value="/" disabled />
+          <n-input v-model:value="vueFile.fileNm" placeholder="파일명" />.vue
+        </n-space>
       </n-form-item>
 
       <n-form-item label="템플릿">
         <n-select :options="templateOpts" v-model:value="vueFile.sno" :default-value="'1'" @update:value="templateUpdateValue" />
       </n-form-item>
-
       <div v-for="obj in set" :key="obj">
         <div v-if="obj.key!=='#{columns}'">
           <n-form-item :label="obj.name? obj.name : ''">
@@ -47,10 +45,10 @@
           </n-form-item>
         </div>
       </div>
-
       <n-button strong secondary type="warning" @click="makeVue">Vue 생성</n-button>
-    </n-layout>
-  </template>
+    </div>
+  </n-card>
+</template>
   
   <script lang="ts" setup>
   import { defineComponent, onMounted, ref } from "vue";
@@ -61,7 +59,7 @@
   
   const set = ref([] as any);
   const templateList = ref([] as any);  //템플릿목록
-  const names = { "#{title}" : "화면명", "#{columns}": "컬럼목록", "#{apiPath}" : "API 경로"};
+  const names = { "#{title}" : "화면명","#{subTitle}" : "화면설명", "#{columns}": "컬럼목록", "#{apiPath}" : "API 경로"};
   const vueFile = ref({path : ""});      
   const tableList = ref();              //DB Tables
   const columnList = ref([]);             //Table Columns

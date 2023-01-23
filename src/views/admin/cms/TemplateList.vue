@@ -1,6 +1,9 @@
 <template>
+  <n-card>
+    <n-h3>템플릿 관리</n-h3>
+      <p>Vue파일 템플릿</p>
+  </n-card>
   <div>
-      <h3 class="text-3xl font-medium text-gray-700">템플릿 관리</h3>
       <div class="mt-4">
         <!-- Table -->
         <div class="flex flex-col mt-6">

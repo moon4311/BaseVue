@@ -1,10 +1,12 @@
 <template>
+  <n-card>
+    <n-h3>권한명 관리</n-h3>
+      <p>권한분류 명</p>
+  </n-card>
   <div>
-      <h3 class="text-3xl font-medium text-gray-700">권한명 관리</h3>
       <div class="mt-4">
         <!-- <h4 class="text-gray-600">Simple Table</h4> -->
          <!-- Inputs -->
-        <div class="mt-4">
           <div class="flex items-center px-4 py-4 space-x-4 overflow-x-auto bg-white rounded-md">
             <div class="relative mx-4 lg:mx-0">
               <n-form inline>
@@ -19,7 +21,6 @@
               </n-form>
             </div>
           </div>
-        </div>
         <!-- Table -->
         <div class="flex flex-col mt-6">
           <n-button type="info" @click="util.add">
@@ -54,7 +55,7 @@ export default defineComponent({
     const columns = [
     {
       title: "권한코드",
-      key: "authCd"
+      key: "authId"
     },
     {
       title: "권한명",
@@ -66,7 +67,7 @@ export default defineComponent({
     },
     {
       title: "",
-      key: "authCd",
+      key: "authId",
       render(row : any) {
         return h(
           NButton,
@@ -74,7 +75,7 @@ export default defineComponent({
             strong: true,
             tertiary: false,
             size: "small",
-            onClick: () => util.showInfo(row.authCd)
+            onClick: () => util.showInfo(row.authId)
           },
           { default: () => "Edit" }
         );

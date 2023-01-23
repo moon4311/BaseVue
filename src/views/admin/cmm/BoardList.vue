@@ -1,8 +1,10 @@
 <template>
+  <n-card>
+    <n-h3>게시글 관리</n-h3>
+      <p>게시글</p>
+  </n-card>
   <div>
-      <h3 class="text-3xl font-medium text-gray-700">게시판 관리</h3>
       <div class="mt-4">
-        <!-- <h4 class="text-gray-600">Simple Table</h4> -->
          <!-- Inputs -->
         <div class="mt-4">
           <div class="flex items-center px-4 py-4 space-x-4 overflow-x-auto bg-white rounded-md">

@@ -1,10 +1,15 @@
 <template>
+  <n-card>
+    <n-h3>코드 관리</n-h3>
+      <p>시스템 공통 코드</p>
+  </n-card>
   <n-layout embedded content-style="padding: 24px;">
-    <n-h1>
-      <n-text type="info">코드 관리</n-text>
-    </n-h1>
     <n-grid x-gap="12" :cols="2">
       <n-gi>
+        <n-space justify="end">
+          <n-button strong secondary type="default" @click="clear">선택취소</n-button>
+          <n-button strong secondary type="info" @click="addRow">코드 생성</n-button>
+        </n-space>
           <n-input v-model:value="pattern" placeholder="Search" />
           <n-card>
               <n-tree
@@ -19,8 +24,7 @@
       </n-gi>
       <n-gi>
         <n-space justify="end">
-          <n-button strong secondary type="info" @click="addRow">코드 생성</n-button>
-          <n-button strong secondary type="info" @click="save">저장</n-button>
+          <n-button strong secondary type="success" @click="save">저장</n-button>
           <n-button strong secondary type="error" @click="del">삭제</n-button>
         </n-space>
         <n-card>
@@ -41,10 +45,10 @@
               <n-input v-model:value="selectItem.nm" placeholder="코드명" />
             </n-form-item>
             <n-form-item label="정렬순서">
-              <n-input-number v-model:value="selectItem.sort" readonly placeholder="Input" />
+              <n-input v-model:value="selectItem.sort" readonly placeholder="Input" />
             </n-form-item>
             <n-form-item label="메모">
-              <n-input v-model:value="selectItem.component" placeholder="component" />
+              <n-input v-model:value="selectItem.memo" placeholder="memo" />
             </n-form-item>
           </n-form>
         </n-card>
@@ -91,7 +95,10 @@ export default defineComponent({
     const rowClick = (obj: any)=>{
       selectItem.value = obj;
     }
-    
+    //초기화
+    const clear = ()=>{
+      selectItem.value = { cd: "", nm:"", sort:"",groupCd:"",memo:"" };
+    }
     //코드 생성
     const addRow = ()=>{
       var sort = 1;
@@ -143,7 +150,7 @@ export default defineComponent({
       search,
       selectItem,
       list,
-      addRow, save, del,
+      clear,addRow, save, del,
       pattern: ref(''),
       showIrrelevantNodes: ref(false),
       nodeProps: ({ option }: { option: TreeOption }) => {

@@ -1,8 +1,9 @@
 <template>
+  <n-card>
+    <n-h3>환경설정</n-h3>
+      <p>시스템 환경 구성</p>
+  </n-card>
   <n-layout embedded content-style="padding: 24px;">
-    <n-h1>
-      <n-text type="info">환경설정</n-text>
-    </n-h1>
     <n-grid x-gap="12" :cols="1">
       <n-gi>
         <n-space justify="end">

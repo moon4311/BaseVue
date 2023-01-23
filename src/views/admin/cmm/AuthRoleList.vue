@@ -1,6 +1,9 @@
 <template>
+  <n-card>
+    <n-h3>권한롤 관리</n-h3>
+      <p>권한규칙</p>
+  </n-card>
   <div>
-      <h3 class="text-3xl font-medium text-gray-700">권한롤 관리</h3>
       <div class="mt-4">
         <!-- <h4 class="text-gray-600">Simple Table</h4> -->
          <!-- Inputs -->

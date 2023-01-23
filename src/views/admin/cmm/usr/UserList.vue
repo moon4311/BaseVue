@@ -1,13 +1,14 @@
 <!-- http://localhost:8001/#/list/basic-list -->
 
-
 <template>
-  <div>
-      <h3 class="text-3xl font-medium text-gray-700">사용자 관리</h3>
+  <n-card>
+    <div class="n-layout-page-header">
+      <n-h3>사용자 정보</n-h3>
+      <p>사용자 기본 정보</p>
+    </div>
+  </n-card>
       <div class="mt-4">
-        <h4 class="text-gray-600">Simple Table</h4>
-         <!-- Inputs -->
-        <div class="mt-4">
+          <!-- Inputs -->
           <div class="flex items-center px-4 py-4 space-x-4 overflow-x-auto bg-white rounded-md">
             <div class="relative mx-4 lg:mx-0">
               <n-form inline>
@@ -22,7 +23,6 @@
               </n-form>
             </div>
           </div>
-        </div>
         <!-- Table -->
         <div class="flex flex-col mt-6">
           <n-button type="info" @click="util.add">
@@ -39,7 +39,6 @@
           </div>
         </div>
       </div>
-  </div>
 </template>
 
 <script lang="ts">
@@ -77,7 +76,7 @@ export default defineComponent({
                               strong: true,
                               tertiary: false,
                               size: "small",
-                              onClick: () => util.showInfo(row.userId)
+                              onClick: () => util.showInfo(row.userNo)
                             },
                             { default: () => "Edit" }
                           );
