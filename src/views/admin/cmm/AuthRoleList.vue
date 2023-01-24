@@ -56,20 +56,23 @@ export default defineComponent({
     const searchValue = ref("");
     const columns = [
     {
-      title: "제목",
-      key: "title"
+      title: "권한 ID",
+      key: "roleId"
     },
     {
-      title: "등록자",
-      key: "registId"
+      title: "권한 이름",
+      key: "roleNm"
     },
     {
-      title: "등록일",
-      key: "registDt"
+      title: "권한 타입",
+      key: "roleType"
+    },
+    {
+      title: "권한 패턴",
+      key: "rolePttrn"
     },
     {
       title: "",
-      key: "userId",
       render(row : any) {
         return h(
           NButton,
@@ -77,7 +80,7 @@ export default defineComponent({
             strong: true,
             tertiary: false,
             size: "small",
-            onClick: () => util.showInfo(row.seq)
+            onClick: () => util.showInfo(row.roleId)
           },
           { default: () => "Edit" }
         );

@@ -7,17 +7,20 @@
   </n-card>
   <n-card class="mt-4">
       <div>
-      <n-form-item path="title" label="제목">
-        <n-input v-model:value="params.title" />
+      <n-form-item path="roleId" label="권한 ID">
+        <n-input v-model:value="params.roleId" disabled />
       </n-form-item>
-      <n-form-item path="name" label="이름">
-        <n-input v-model:value="params.name"/>
+      <n-form-item path="roleNm" label="권한명">
+        <n-input v-model:value="params.roleNm"/>
       </n-form-item>
-      <n-form-item path="contents" label="내용">
-        <n-input v-model:value="params.contents"/>
+      <n-form-item path="rolePttrn" label="권한규칙">
+        <n-input v-model:value="params.rolePttrn"/>
       </n-form-item>
-      <n-form-item path="memo" label="메모">
-        <n-input v-model:value="params.memo"/>
+      <n-form-item path="roleType" label="권한타입">
+        <n-input v-model:value="params.roleType"/>
+      </n-form-item>
+      <n-form-item path="roleDc" label="설명">
+        <n-input v-model:value="params.roleDc"/>
       </n-form-item>
       <n-row :gutter="[0, 24]">
         <n-col :span="24">
