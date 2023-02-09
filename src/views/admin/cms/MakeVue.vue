@@ -132,7 +132,7 @@
 
     vueFile.value.content = content;
     
-    axios.post(apiUrl + "/template/make", vueFile.value ).then(res=>{
+    axios.post(apiUrl + "/template/makeVue", vueFile.value ).then(res=>{
       alert("생성되었습니다.");
     });
   }
