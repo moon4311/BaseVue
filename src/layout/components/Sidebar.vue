@@ -9,29 +9,30 @@ import apiUrl from '/src/assets/base'
 import { NIcon, useMessage } from 'naive-ui'
 import type { MenuOption } from 'naive-ui'
 import _ from 'lodash';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import TabsView from './TagsView.vue';
 
-
-
-function getMenu(menu: any, children?: any){
-  var s = {key : menu.menuId , label : menu.name, path: menu.path, name: menu.name, component: menu.component};
-  if(children && children.length>0) s['children'] = children;
-  else {
-    s.label = () => h( RouterLink
-                      ,{ to: { name: menu.name } }
-                      ,{ default: () => menu.name }
-                    );
-    s.component = menu.component
-    s.name = menu.name
-    s.path = menu.path
-  }
-  return s;
-}
 
 export default defineComponent({
   setup () {
     const menuOptions = ref([] as MenuOption[]);
+    const route = useRouter().getRoutes();
+    const getMenu : any = (menu: any, children?: any)=> {
+      let s  = {key : menu.menuId , label : menu.name, path: menu.path, name: menu.name, component: menu.component};
+      if(children && children.length>0) s['children'] = children;
+      else {
+        s.label = () => h( RouterLink
+                          ,{ to: { name: menu.name } }
+                          ,{ default: () => menu.name }
+                        );
+        s.component = menu.component
+        s.name = menu.name
+        s.path = _.find( route , {'name': menu.name}).path;
+      }
+      return s;
+    };
+
+
     onMounted(async()=>{
       axios.get(apiUrl + "/menu/list").then((res: any)=>{
         var list = res.data.data;
@@ -46,8 +47,6 @@ export default defineComponent({
         });//forEach
       });
     });
-
-    //const tabsViewStore = useTabsViewStore();
     
     return {
       menuOptions

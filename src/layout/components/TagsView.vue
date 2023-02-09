@@ -17,16 +17,18 @@
 </template>
 <script lang="ts">
     import { ref } from 'vue'
+    import { useRouter } from 'vue-router';
     const tagList = ref([] as any);
     export default{
         name: 'tags',
         data(){
             const selected= "";
-
+            const router = useRouter();
             var s = localStorage.getItem('tagList');
             if(s) tagList.value = JSON.parse(s);
             return{
                 selected,
+                router,
                 tagList
             }
         },
@@ -34,11 +36,11 @@
             push(o: any ){
                 const a = tagList.value.filter((e:any)=> e.name === o.name);
                 if(a.length==0) tagList.value.push(o);
-                this. selected = o.name;
+                this.selected = o.name;
                 localStorage.setItem('tagList',JSON.stringify(tagList.value));
             },
             handleClick(o: any){
-                console.log(o);
+                this.router.push(o.path);
             },
             handleClose(o : any){
                 tagList.value = tagList.value.filter( (e: string)  => e !== o)
