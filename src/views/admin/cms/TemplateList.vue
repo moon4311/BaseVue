@@ -1,7 +1,15 @@
 <template>
   <n-card>
+    <n-space wrap-item="false">
     <n-h3>템플릿 관리</n-h3>
       <p>Vue파일 템플릿</p>
+    </n-space>
+    <n-form-item path="templateTypeCd" label="템플릿 구분">
+      <n-select
+        v-model:value="params.tempalteTypeCd"
+        :options="options"
+      ></n-select>
+    </n-form-item>
   </n-card>
   <div>
       <div class="mt-4">
@@ -33,11 +41,13 @@ import { useRouter } from "vue-router";
 import { NButton, useMessage } from "naive-ui";
 
 util.setRouter(useRouter());
+const params = ref({});
+const options = ref([]);
 const searchValue = ref("");
 const columns = [
                   {
-                    title: "ID",
-                    key: "templateId"
+                    title: "구분",
+                    key: "templateTypeCd"
                   },
                   {
                     title: "이름",
@@ -72,7 +82,11 @@ const search = ()=>{
   });
 }
 
-onMounted(()=>{
+onMounted(async ()=>{
+  await axios.get(apiUrl + "/code/options/TEMPLATE_TYPE_CD").then(res=>{
+    options.value = res.data.data;  
+  });
+
   search();
 });
     

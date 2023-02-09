@@ -7,9 +7,17 @@
   </n-card>
   <n-card class="mt-4">
     <n-config-provider :hljs="hljs">
-        <div>
-          <n-form-item path="id" label="ID">
-            <n-input v-model:value="params.templateId" />
+        <n-form
+          :label-width="80"
+          >
+          <n-form-item path="templateTypeCd" label="템플릿 구분">
+            <n-select
+              v-model:value="params.templateTypeCd"
+              :options="options"
+              :disabled="id!=undefined"
+            >
+            </n-select>
+            <!-- <n-input v-model:value="params.templateTypeCd" /> -->
           </n-form-item>
           <n-form-item path="nm" label="이름">
             <n-input v-model:value="params.templateNm"/>
@@ -31,7 +39,7 @@
               </div>
             </n-col>
           </n-row>
-        </div>
+        </n-form>
     </n-config-provider>
   </n-card>
 </template>
@@ -45,9 +53,15 @@ import { useMessage } from 'naive-ui';
 
 const message = useMessage()
 const params= ref({})
+const options = ref([]);
+const id = useRoute().params.id;
+onMounted(async ()=>{
+  
 
-onMounted( ()=>{
-  const id = useRoute().params.id;
+  await axios.get(apiUrl + "/code/options/TEMPLATE_TYPE_CD").then(res=>{
+    options.value = res.data.data;  
+  });
+
   if(id){
     axios.get(apiUrl + "/template/info/"+id ).then(res=>{
       params.value=res.data.data;
