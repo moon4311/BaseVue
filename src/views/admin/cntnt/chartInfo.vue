@@ -1,7 +1,10 @@
 <template>
-  <n-layout embedded content-style="padding: 24px;">
-    <h3 class="text-3xl font-semibold text-gray-700">게시판 정보</h3>
-
+  <n-card>
+    <n-h3>차트관리</n-h3>
+      <p>차트관리</p>
+  </n-card>
+  <n-card>
+    <div>
     <div class="mt-8">
       <n-form-item path="title" label="제목">
         <n-input v-model:value="params.title" />
@@ -10,7 +13,7 @@
         <n-input v-model:value="params.name"/>
       </n-form-item>
       <n-form-item path="contents" label="내용">
-        <n-input v-model:value="params.content"/>
+        <n-input v-model:value="params.contents"/>
       </n-form-item>
       <n-form-item path="memo" label="메모">
         <n-input v-model:value="params.memo"/>
@@ -24,42 +27,33 @@
         </n-col>
       </n-row>
     </div>
-  </n-layout>
+  </div>
+</n-card>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent, ref, onMounted } from "vue";
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
 import { useRoute } from "vue-router";
 import { useMessage } from 'naive-ui'
 
-export default defineComponent({
-  setup () {
-    const message = useMessage()
-    const params = ref({})
+  const message = useMessage()
+  const id = useRoute().params.id;
+  const params = ref({})
+  const apiPath = 'chart';
+  onMounted( ()=>{
+    if(id){
+      axios.get(apiUrl + "/"+apiPath+"/info/"+ id ).then(res=>{
+        params.value=res.data.data;
+      })
+    }
+  });
 
-    onMounted( ()=>{
-      const id = useRoute().params.id;
-      if(id){
-        axios.get(apiUrl + "/board/info/"+id ).then(res=>{
-          params.value=res.data.data;
-        })
-      }
+  const save = ()=>{
+    params.value.id = id;
+    axios.post(apiUrl+"/"+apiPath+"/save",params.value).then(res=>{
+      message.success("저장 되었습니다.");
     });
-
-    const save = ()=>{
-      axios.post(apiUrl+"/board/save",params.value).then(res=>{
-        message.success("저장 되었습니다.");
-        console.log(res);
-      });
-    }
-
-
-    return {
-      params,
-      save,
-    }
   }
-})
 </script>

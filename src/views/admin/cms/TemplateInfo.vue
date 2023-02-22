@@ -70,7 +70,7 @@ onMounted(async ()=>{
 });
 const save = ()=>{
   axios.post(apiUrl + "/template/save", params.value ).then(res=>{
-    alert("저장되었습니다.");
+    message.success("저장되었습니다.");
   });
 }
 </script>

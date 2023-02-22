@@ -54,9 +54,10 @@
   import { defineComponent, onMounted, ref } from "vue";
   import axios from 'axios'
   import apiUrl from '/src/assets/base';
-  import { SelectOption } from 'naive-ui'
+  import { SelectOption, useMessage } from 'naive-ui'
   import _ from 'lodash';
-  
+
+  const message = useMessage()
   const set = ref([] as any);
   const templateList = ref([] as any);  //템플릿목록
   const names = { "#{title}" : "화면명","#{subTitle}" : "화면설명", "#{columns}": "컬럼목록", "#{apiPath}" : "API 경로"};
@@ -69,7 +70,7 @@
 
   //템플릿 조회
   const getTmeplate = () =>{
-    axios.get(apiUrl + "/template/list" ).then(res =>{
+    axios.get(apiUrl + "/template/list",{ params : { templateTypeCd : 'vue' } } ).then(res =>{
       templateList.value = res.data.data;
       _.each(templateList.value, (o => {
           templateOpts.value.push({ label : o.templateNm, value : o.sno});
@@ -133,7 +134,7 @@
     vueFile.value.content = content;
     
     axios.post(apiUrl + "/template/makeVue", vueFile.value ).then(res=>{
-      alert("생성되었습니다.");
+      message.success("생성되었습니다.");
     });
   }
 

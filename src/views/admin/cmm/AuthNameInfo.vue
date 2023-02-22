@@ -49,7 +49,7 @@ import { useMessage } from 'naive-ui'
 
   const save = ()=>{
     axios.post(apiUrl+"/authName/save",params.value).then(res=>{
-      message.info("저장되었습니다.");
+      message.success("저장되었습니다.");
     });
   }
 </script>

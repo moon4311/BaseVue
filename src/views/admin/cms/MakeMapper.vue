@@ -58,10 +58,11 @@
   import { defineComponent, onMounted, ref } from "vue";
   import axios from 'axios'
   import apiUrl from '/src/assets/base';
-  import { SelectOption } from 'naive-ui'
+  import { SelectOption, useMessage } from 'naive-ui'
   import _ from 'lodash';
   
   const set = ref([] as any);
+  const message = useMessage();
   const templateList = ref([] as any);  //템플릿목록
   const names = { "#{title}" : "화면명","#{subTitle}" : "화면설명", "#{columns}": "컬럼목록", "#{apiPath}" : "API 경로"};
   const vueFile = ref({path : ""});      
@@ -135,7 +136,7 @@
     vueFile.value.content = content;
     
     axios.post(apiUrl + "/template/makeMapper", vueFile.value ).then(res=>{
-      alert("생성되었습니다.");
+      message.success("생성되었습니다.");
     });
   }
 

@@ -56,6 +56,7 @@ import { useMessage } from 'naive-ui'
   const save = ()=>{
     axios.post(apiUrl+"/authRole/save",params.value).then(res=>{
       console.log(res);
+      message.success("저장 되었습니다.");
     });
   }
 </script>
