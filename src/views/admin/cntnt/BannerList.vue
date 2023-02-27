@@ -11,10 +11,7 @@
              <div class="relative mx-4 lg:mx-0">
                <n-form inline>
                  <n-form-item label="제목" path="searchValue">
-                   <n-input v-model:value="params.userNm" type="text" placeholder="Search" />
-                 </n-form-item>
-                 <n-form-item label="제목" path="searchValue">
-                   <n-input v-model:value="params.userId" type="text" placeholder="Search" />
+                   <n-input v-model:value="params.bannerNm" type="text" placeholder="Search" />
                  </n-form-item>
                  <n-form-item>
                    <n-button @click="search">
@@ -61,7 +58,7 @@
  
      const search = ()=>{
        axios.get(apiUrl + "/banner/list",{params: params.value } ).then((res: any)=>{
-         list.value = res.data.data;
+        list.value = res.data.data;
        });
      }
  

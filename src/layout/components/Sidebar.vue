@@ -32,9 +32,8 @@ export default defineComponent({
       return s;
     };
 
-
     onMounted(async()=>{
-      axios.get(apiUrl + "/menu/list").then((res: any)=>{
+      axios.get(apiUrl + "/menu/list", {params:{'showYn':'Y'}}).then((res: any)=>{
         var list = res.data.data;
         _.filter(list,(a)=>{return a.upperMenuId==null}).forEach((a :any)=>{
           //1.get Child

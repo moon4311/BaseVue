@@ -53,9 +53,14 @@
             <n-form-item label="정렬순서">
               <n-input-number v-model:value="selectItem.sort" :disabled="selectItem.menuId!==''" placeholder="Input" />
             </n-form-item>
-            <n-form-item label="사용여부">
-              <n-input v-model:value="selectItem.useYn" />
-            </n-form-item>
+            <n-space>
+              <n-form-item label="표시여부">
+                <n-input v-model:value="selectItem.showYn" />
+              </n-form-item>
+              <n-form-item label="사용여부">
+                <n-input v-model:value="selectItem.useYn" />
+              </n-form-item>
+            </n-space>
           </n-form>
         </n-card>
       </n-gi>

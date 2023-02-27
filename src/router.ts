@@ -28,7 +28,7 @@ function push(target:any, b: any){
   }
 }
 
-await axios.get(apiUrl+"/menu/list").then((res)=>{
+await axios.get(apiUrl+"/menu/list",{params:{'useYn':'Y'}}).then((res)=>{
   var list = res.data.data;
   //childen 생성
   list.forEach((a: any)=> {

@@ -10,7 +10,7 @@
            <div class="flex items-center px-4 py-4 space-x-4 overflow-x-auto bg-white rounded-md">
              <div class="relative mx-4 lg:mx-0">
                <n-form inline>
-                 <n-form-item label="제목" path="searchValue">
+                 <n-form-item label="차트명" path="searchValue">
                    <n-input v-model:value="params.userNm" type="text" placeholder="Search" />
                  </n-form-item>
                  <n-form-item label="제목" path="searchValue">
@@ -54,11 +54,41 @@
  
  export default defineComponent({
    setup() {
-     util.setRouter( useRouter() );
+     const router = useRouter();
+     util.setRouter( router );
      const params = ref({});
-     const columns = [{"title":"순번","key":"chartSno"},{"title":"사용자","key":"userNo"},{"title":"차트구분","key":"chartTypeCd"},{"title":"제목","key":"chartNm"}] ;
+     const columns = [
+        {"title":"순번","key":"chartSno"},
+        {"title":"사용자","key":"userNo"},
+        {"title":"차트구분","key":"chartTypeCd"},
+        {"title":"제목","key":"chartNm"},
+        {
+          title: "",
+          render(row : any) {
+            return [
+              h(NButton,
+                {
+                  strong: true,
+                  tertiary: false,
+                  size: "small",
+                  onClick: () => router.push({path : router.currentRoute.value.path+"/"+row.chartSno+"/"+row.chartTypeCd, params : { 'id': row.chartSno}}) 
+                },
+                { default: () => "Show" }
+              ),
+              h(NButton,
+                {
+                  strong: true,
+                  tertiary: false,
+                  size: "small",
+                  onClick: () => util.showInfo(row.chartSno)
+                },
+                { default: () => "Edit" }
+              )
+            ]
+          }
+        }
+      ] ;
      const list = ref([]);
- 
      const search = ()=>{
        axios.get(apiUrl + "/chart/list",{params: params.value } ).then((res: any)=>{
          list.value = res.data.data;
