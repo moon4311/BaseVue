@@ -71,7 +71,7 @@
                   strong: true,
                   tertiary: false,
                   size: "small",
-                  onClick: () => router.push({path : router.currentRoute.value.path+"/"+row.chartSno+"/"+row.chartTypeCd, params : { 'id': row.chartSno}}) 
+                  onClick: () => router.push({path : router.currentRoute.value.path+"/"+row.chartTypeCd+"/"+row.chartSno, params : { 'id': row.chartSno}}) 
                 },
                 { default: () => "Show" }
               ),
