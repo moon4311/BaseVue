@@ -7,6 +7,7 @@
     <div>
       <n-form-item label="파일">
         <n-space>
+          BaseVue/src/views/
           <n-input v-model:value="vueFile.path" placeholder=" views/ 하위경로" />
           <n-input value="/" disabled />
           <n-input v-model:value="vueFile.fileNm" placeholder="파일명" />.vue

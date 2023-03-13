@@ -1,12 +1,12 @@
 <template>
   <n-card>
     <n-h3>차트관리</n-h3>
-      <p>바 차트</p>
+      <p>버블 차트</p>
   </n-card>
   <n-card>
     <div>
       <div class="mt-8">
-        <Bar
+        <Bubble
           id="my-chart-id"
           v-if="loaded"
           :data="chartData"
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Bar } from 'vue-chartjs'
+import { Bubble } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
@@ -30,8 +30,8 @@ import { useRoute } from "vue-router";
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'BarChart',
-  components: { Bar },
+  name: 'BubbleChart',
+  components: { Bubble },
   data: () => ({
     loaded: false,
     chartData: {labels: null, datasets: [ ]}

@@ -16,8 +16,10 @@ let routes: any[] = [{
 
 function getMenu(b: any){
   var menu = { path : b.path, name : b.name, children: undefined, component : ()=> import("./layout/EmptyLayout.vue") };
+  //하위메뉴 담기
   if(b.children) menu.children = b.children;
-  else menu.component = () => import( "./views/" + b.component + ".vue") ;
+  //화면 있다면 연결
+  if(b.component) menu.component = () => import( "./views/" + b.component + ".vue") ;
   return menu;
 }
 
@@ -34,7 +36,7 @@ await axios.get(apiUrl+"/menu/list",{params:{'useYn':'Y'}}).then((res)=>{
   list.forEach((a: any)=> {
       a.children = [];
       list.forEach((b : any ,idx :number )=>{
-        if(a.menuId == b.upperMenuId){
+        if(a.menuId && a.menuId == b.upperMenuId){
           list[idx] = getMenu(b);
           a.children.push( list[idx] );
           push(a.children,b);
