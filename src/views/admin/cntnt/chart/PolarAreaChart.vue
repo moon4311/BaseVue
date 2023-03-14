@@ -1,19 +1,17 @@
 <template>
   <n-card>
     <n-h3>차트관리</n-h3>
-      <p>라인 차트</p>
+      <p>극지방 차트</p>
   </n-card>
   <n-card>
     <div>
       <div class="mt-8">
-        <Line
+        <PolarArea
           id="my-chart-id"
           v-if="loaded"
           :data="chartData"
         />
         <div>
-          <!-- <n-input v-model:value="chartData.labels" />
-          <n-input v-model:value="chartData.datasets" /> -->
         </div>
       </div>
     </div>
@@ -23,32 +21,21 @@
 <script lang="ts">
 import {
   Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
+  RadialLinearScale,
+  ArcElement,
   Tooltip,
   Legend
 } from 'chart.js'
-import { Line } from 'vue-chartjs'
+import { PolarArea } from 'vue-chartjs'
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
 import { useRoute } from "vue-router";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-)
+ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend)
 
 export default {
-  name: 'LineChart',
-  components: { Line },
+  name: 'PolarAreaChart',
+  components: { PolarArea },
   data: () => ({
     loaded: false,
     chartData: {labels: null, datasets: [ ]}

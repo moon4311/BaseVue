@@ -1,19 +1,17 @@
 <template>
   <n-card>
     <n-h3>차트관리</n-h3>
-      <p>라인 차트</p>
+      <p>산점도 차트</p>
   </n-card>
   <n-card>
     <div>
       <div class="mt-8">
-        <Line
+        <Scatter
           id="my-chart-id"
           v-if="loaded"
           :data="chartData"
         />
         <div>
-          <!-- <n-input v-model:value="chartData.labels" />
-          <n-input v-model:value="chartData.datasets" /> -->
         </div>
       </div>
     </div>
@@ -23,32 +21,22 @@
 <script lang="ts">
 import {
   Chart as ChartJS,
-  CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
-  Title,
   Tooltip,
   Legend
 } from 'chart.js'
-import { Line } from 'vue-chartjs'
+import { Scatter } from 'vue-chartjs'
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
 import { useRoute } from "vue-router";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-)
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend)
 
 export default {
-  name: 'LineChart',
-  components: { Line },
+  name: 'ScatterChart',
+  components: { Scatter },
   data: () => ({
     loaded: false,
     chartData: {labels: null, datasets: [ ]}

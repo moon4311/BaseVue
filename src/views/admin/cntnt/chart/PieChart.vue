@@ -6,14 +6,12 @@
   <n-card>
     <div>
       <div class="mt-8">
-        <!-- <Bar
+        <Pie
           id="my-chart-id"
           v-if="loaded"
           :data="chartData"
-        /> -->
+        />
         <div>
-          <!-- <n-input v-model:value="chartData.labels" />
-          <n-input v-model:value="chartData.datasets" /> -->
         </div>
       </div>
     </div>
@@ -21,13 +19,13 @@
 </template>
 
 <script lang="ts">
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Pie } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
 import { useRoute } from "vue-router";
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default {
   name: 'PieChart',

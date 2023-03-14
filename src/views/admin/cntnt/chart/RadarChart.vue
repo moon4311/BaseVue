@@ -1,19 +1,17 @@
 <template>
   <n-card>
     <n-h3>차트관리</n-h3>
-      <p>라인 차트</p>
+      <p>레이더 차트</p>
   </n-card>
   <n-card>
     <div>
       <div class="mt-8">
-        <Line
+        <Radar
           id="my-chart-id"
           v-if="loaded"
           :data="chartData"
         />
         <div>
-          <!-- <n-input v-model:value="chartData.labels" />
-          <n-input v-model:value="chartData.datasets" /> -->
         </div>
       </div>
     </div>
@@ -23,32 +21,30 @@
 <script lang="ts">
 import {
   Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
+  RadialLinearScale,
   PointElement,
   LineElement,
-  Title,
+  Filler,
   Tooltip,
   Legend
 } from 'chart.js'
-import { Line } from 'vue-chartjs'
+import { Radar } from 'vue-chartjs'
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
 import { useRoute } from "vue-router";
 
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
+  RadialLinearScale,
   PointElement,
   LineElement,
-  Title,
+  Filler,
   Tooltip,
   Legend
 )
 
 export default {
-  name: 'LineChart',
-  components: { Line },
+  name: 'RadarChart',
+  components: { Radar },
   data: () => ({
     loaded: false,
     chartData: {labels: null, datasets: [ ]}

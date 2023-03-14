@@ -12,8 +12,6 @@
           :data="chartData"
         />
         <div>
-          <!-- <n-input v-model:value="chartData.labels" />
-          <n-input v-model:value="chartData.datasets" /> -->
         </div>
       </div>
     </div>
@@ -21,13 +19,19 @@
 </template>
 
 <script lang="ts">
+import {
+  Chart as ChartJS,
+  Tooltip,
+  Legend,
+  PointElement,
+  LinearScale
+} from 'chart.js'
 import { Bubble } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import axios from 'axios'
 import apiUrl from '/src/assets/base';
 import { useRoute } from "vue-router";
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(LinearScale, PointElement, Tooltip, Legend)
 
 export default {
   name: 'BubbleChart',
@@ -35,6 +39,10 @@ export default {
   data: () => ({
     loaded: false,
     chartData: {labels: null, datasets: [ ]}
+    // options : {
+    //   responsive: true,
+    //   maintainAspectRatio: false
+    // }
   }),
   async mounted () {
     const id = useRoute().params.id;
@@ -44,7 +52,6 @@ export default {
       if(id){
       await axios.get(apiUrl + "/"+apiPath+"/info/"+ id ).then(res=>{
         const data = res.data.data;
-        this.chartData.labels = JSON.parse(data.labels);
         this.chartData.datasets = JSON.parse(data.datasets);
         this.loaded = true
       })
