@@ -86,11 +86,11 @@
     vueFile.value.content = one.content;
 
     //input창 생성
-    set.value = _.map( one.content.match(/#{+\b[\w]+}/gi) , o=>{
+    set.value = _.uniqBy( _.map( one.content.match(/#{+\b[\w]+}/gi) , o=>{
       var s = { key : o, name : names[o]? names[o]:o };
       if(o==='#{columns}') getTable();
       return s;
-    });
+    }), 'key');
   }
 
   //테이블 조회
@@ -129,7 +129,7 @@
       if(o.key=='#{columns}'){
         o.val = JSON.stringify(columns);
       }
-      content = content.replace(o.key, o.val);
+      content = content.replace(new RegExp(o.key,"gi"), o.val);
     });
 
     vueFile.value.content = content;
